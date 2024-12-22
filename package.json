@@ -6,5 +6,9 @@
   },
   "scripts": {
     "test": "jest"
+  },
+  "dependencies": {
+    "@types/react": "^19.0.2",
+    "react": "^19.0.0"
   }
 }
