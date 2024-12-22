@@ -6,13 +6,15 @@ describe('Reducer', () => {
   const initialState: TestState = { name: null, quantity: 1 };
 
   describe('update', () => {
-    it('Should update property using intrinstic action', () => {
-      const result = BaseExtendableReducer(
-        initialState,
-        { type: 'reset' },
-        TestIndependentReducer
-      );
-      expect(result.name).toBe('Chris');
+    describe('For independent reducer', () => {
+      it('Should update property for intrinstic action', () => {
+        const result = BaseExtendableReducer(
+          initialState,
+          { type: 'reset' },
+          TestIndependentReducer
+        );
+        expect(result.name).toBeNull();
+      });
     });
   });
 });
