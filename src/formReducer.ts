@@ -1,4 +1,5 @@
-import { PropertyAction, State } from "./reducer";
+import { PropertyAction } from './extendableReducer/actions';
+import { State } from './types';
 
 export interface FormState<TState extends State> {
   state: TState;
