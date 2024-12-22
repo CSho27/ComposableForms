@@ -4,7 +4,8 @@ export type Action = {
   type: string;
 };
 
-export type PropertyAction<TState> = {
+export type IntrinsicAction<TState extends State> = PropertyAction<TState>;
+export type PropertyAction<TState extends State> = {
   [P in Path<TState>]: {
     type: "update";
     property: P;
@@ -24,21 +25,33 @@ export function isPropertyAction<TState extends State>(
   return isValidProperty;
 }
 
-export type ComposableAction<TState extends State, TAction extends Action> =
+export type ExtendedAction<TState extends State, TAction extends Action> =
   | TAction
-  | PropertyAction<TState>;
-export type ComposableReducer<TState extends State, TAction extends Action> = (
+  | IntrinsicAction<TState>;
+
+export type IndependentReducer<TState extends State, TAction extends Action> = (
   state: TState,
-  action: ComposableAction<TState, TAction>
+  action: TAction
+) => TState;
+export type ExtendedReducer<TState extends State, TAction extends Action> = (
+  state: TState,
+  action: TAction
 ) => TState | undefined;
 
-export function ComposableStateReducer<
+export type ExtendableReducer<
+  TState extends State,
+  TAction extends Action
+> = TAction extends ExtendedAction<TState, TAction>
+  ? ExtendedReducer<TState, TAction>
+  : IndependentReducer<TState, TAction>;
+
+export function BaseExtendableReducer<
   TState extends State,
   TAction extends Action
 >(
   state: TState,
-  action: ComposableAction<TState, TAction>,
-  reducer?: ComposableReducer<TState, TAction>
+  action: TAction,
+  reducer?: ExtendableReducer<TState, TAction>
 ): TState {
   const updatedState = reducer?.(state, action);
   if (updatedState !== undefined) return updatedState;
