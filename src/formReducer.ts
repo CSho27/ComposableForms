@@ -17,7 +17,7 @@ export type PropertyAction<TState> = Action &
     [K in Path<TState>]: { type: "update"; property: K; value: TState[K] };
   }[Path<TState>];
 
-export function FormEditorStateReducer<
+export function FormStateReducer<
   TState extends State,
   TAction extends FormAction<TState>
 >(state: TState, action: TAction): TState {
@@ -28,10 +28,4 @@ export function FormEditorStateReducer<
         [action.property]: action.value,
       };
   }
-}
-
-export interface TestState {
-  name: string;
-  quantity: number;
-  addedOn: Date;
 }
