@@ -1,12 +1,12 @@
 import { describe, it, expect } from "@jest/globals";
-import { FormAction, FormStateReducer } from "./formReducer";
+import { Reducer } from "./reducer";
 
-describe("formReducer", () => {
+describe("Reducer", () => {
   const initialState: TestState = { name: null, quantity: 1 };
 
   describe("update", () => {
     it("Should update a property", () => {
-      const result = FormStateReducer(initialState, {
+      const result = Reducer(initialState, {
         type: "update",
         property: "name",
         value: "Chris",
