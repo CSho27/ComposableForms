@@ -18,7 +18,8 @@ export function isPropertyAction<TState extends State>(
   const isValidProperty = Object.keys(state).some(
     k => k === propertyAction.property
   );
-  return isValidProperty;
+  const hasValue = Object.keys(action).some(k => k === 'value');
+  return isValidProperty && hasValue;
 }
 
 export type ExtendedAction<TState extends State, TAction extends Action> =
