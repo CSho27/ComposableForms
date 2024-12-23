@@ -1,4 +1,4 @@
-import { PropertyAction } from './extendableReducer/actions';
+import { PropertyAction } from './sharedReducers/propertyUpdateReducer';
 import { State } from './types';
 
 export interface FormState<TState extends State> {
